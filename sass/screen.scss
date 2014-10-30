@@ -1,0 +1,59 @@
+@import "compass";
+
+$width: 960px;
+$gutter: 20px;
+$columns: 12;
+$column_width: $width/$columns;
+$prefix: true !default;
+$push: true !default;
+body {
+  min-width: $width;
+}
+
+.container {
+	margin-left: auto;
+	margin-right: auto;
+	width: $width;
+}
+
+.grid {
+	display: inline;
+	float: left;
+	margin-left: $gutter / 2;
+	margin-right: $gutter / 2;
+}
+
+.relative {
+	position: relative;
+}
+
+@for $i from 1 through $columns {
+	.grid_#{$i} {
+		@extend .grid;
+		width: $i * $column_width - $gutter;
+	}
+
+	@if $prefix == true {
+		.container_#{$columns} {
+			.prefix_#{$i} {
+				padding-left: $i * $column_width;
+			}
+
+			& .suffix_#{$i} {
+				padding-right: $i * $column_width;
+			}
+		}
+	}
+
+	@if push == true { 
+		.push_#{$i} {
+			@extend .relative;
+			width: $i * $column_width;
+		}
+
+		.pull_#{$i} {
+			@extend .relative;
+			width: -$i * $column_width;
+		}
+	}
+}
